@@ -7,7 +7,7 @@ import numpy as np
 import glob
 import os
 
-def merge_files(folder, gps_delimiter=";", gps_col=3):
+def merge_files(folder):
     try:
         os.mkdir(os.path.join("target", os.path.basename(folder)))
     except:
@@ -19,11 +19,11 @@ def merge_files(folder, gps_delimiter=";", gps_col=3):
     data_out_file = os.path.join("target", folder, "merged_"+os.path.basename(data_file))
 
     # Create position ground truth object pGT
-    gps_data = pd.read_csv(gps_file, sep=gps_delimiter)
+    gps_data = pd.read_csv(gps_file)
 
-    gps_times = gps_data.iloc[:, gps_col].to_numpy()
-    gps_x = gps_data.iloc[:, 0].to_numpy()
-    gps_y = gps_data.iloc[:, 1].to_numpy()
+    gps_times = gps_data['T'].to_numpy()
+    gps_x = gps_data['X'].to_numpy()
+    gps_y = gps_data['Y'].to_numpy()
 
     h = gps_times // 10000
     m = (gps_times % 10000) // 100
@@ -45,5 +45,5 @@ def merge_files(folder, gps_delimiter=";", gps_col=3):
 
 
 if __name__ == "__main__":
-    merge_files("porsgrunn", gps_delimiter=";", gps_col=2)
-    merge_files("skoklevann", gps_delimiter=",", gps_col=3)
+    merge_files("porsgrunn")
+    merge_files("skoklevann")
