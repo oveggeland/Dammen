@@ -4,7 +4,6 @@ Copyright Dammen GeoServices
 
 import pandas as pd
 import numpy as np
-import glob
 import os
 
 def merge_files(folder):
@@ -13,10 +12,10 @@ def merge_files(folder):
     except:
         print("Already exists")
         
-    # Filenames
-    gps_file = glob.glob(os.path.join("source", folder, "*.csv"))[0]
-    data_file = glob.glob(os.path.join("source", folder, "*.txt"))[0]
-    data_out_file = os.path.join("target", folder, "merged_"+os.path.basename(data_file))
+    # Filename
+    gps_file = os.path.join("source", folder, "gps_data.csv")
+    data_file = os.path.join("source", folder, "sonar_data.txt")
+    data_out_file = os.path.join("target", folder, "merged_gps_sonar_data.csv")
 
     # Create position ground truth object pGT
     gps_data = pd.read_csv(gps_file)
